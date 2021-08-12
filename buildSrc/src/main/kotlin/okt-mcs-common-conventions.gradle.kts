@@ -25,6 +25,10 @@ publishing {
     }
 }
 
+dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
+}
+
 tasks.test {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()

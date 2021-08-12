@@ -5,3 +5,7 @@
 plugins {
     id("okt-mcs-common-conventions")
 }
+dependencies {
+    api(platform("software.amazon.awssdk:bom:$awsSdkVersion"))
+    api("software.amazon.awssdk:sqs:$awsSdkVersion")
+}
