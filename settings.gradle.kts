@@ -8,4 +8,4 @@
  */
 
 rootProject.name = "okt-mcs"
-include("fundamentals", "aws")
+include("mcs-fundamentals", "mcs-aws")

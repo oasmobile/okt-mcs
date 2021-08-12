@@ -6,5 +6,5 @@ plugins {
     id("okt-mcs-aws-conventions")
 }
 dependencies {
-    implementation(project(":fundamentals"))
+    implementation(project(":mcs-fundamentals"))
 }
