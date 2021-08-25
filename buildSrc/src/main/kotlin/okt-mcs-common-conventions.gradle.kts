@@ -23,6 +23,18 @@ publishing {
             from(components["java"])
         }
     }
+    repositories {
+        maven {
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            credentials {
+                username = "6115da3efa25fa3e24ef4974"
+                password = ")vf[Nze9PrU["
+            }
+            val releasesRepoUrl = uri("https://packages.aliyun.com/maven/repository/2128600-release-6m4wkH/")
+            val snapshotsRepoUrl = uri("https://packages.aliyun.com/maven/repository/2128600-snapshot-vzRfBW/")
+            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+        }
+    }
 }
 
 dependencies {
