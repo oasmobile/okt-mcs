@@ -32,9 +32,7 @@ publishing {
                 username = aliyunUsername
                 password = aliyunPassword
             }
-            val releasesRepoUrl = uri("https://packages.aliyun.com/maven/repository/2132034-release-rf0Mpj/")
-            val snapshotsRepoUrl = uri("https://packages.aliyun.com/maven/repository/2132034-snapshot-5xXWTt/")
-            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+            url = uri("https://packages.aliyun.com/maven/repository/2132034-release-rf0Mpj/")
         }
     }
 }
