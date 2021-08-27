@@ -5,6 +5,9 @@
 plugins {
     id("okt-mcs-aws-conventions")
 }
+
 dependencies {
     implementation(project(":mcs-fundamentals"))
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.5.21")
 }
