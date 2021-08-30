@@ -1,4 +1,4 @@
 package com.oasis.okt.mcs.fundamentals.queue
 
 
-class QueueServiceException(message: String) : RuntimeException(message)
+class QueueServiceException(message: String) : Throwable(message)
