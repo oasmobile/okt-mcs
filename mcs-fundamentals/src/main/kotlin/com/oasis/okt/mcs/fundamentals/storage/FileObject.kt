@@ -1,3 +1,7 @@
 package com.oasis.okt.mcs.fundamentals.storage
 
-data class FileObject(val key:String?=null,val path:String?=null)
+data class FileObject(
+    val metaData:Map<String,String>? = null,
+    val content:String,
+    val path:String
+)
