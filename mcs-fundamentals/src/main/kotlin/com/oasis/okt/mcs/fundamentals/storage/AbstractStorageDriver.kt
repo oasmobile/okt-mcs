@@ -4,12 +4,10 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
 
-interface StorageDriverInterface {
-    suspend fun putText(path: String, content: String,metaData: Map<String,String> = mapOf())
-    suspend fun readText(path:String):FileObject
-    suspend fun deleteFile(path:String)
-    suspend fun updateFile(path: String, content: String)
-    suspend fun putFile(path:String,localPath:String,metaData: Map<String, String> = mapOf())
+internal interface StorageDriverInterface {
+    suspend fun put(path: String, content: String)
+    suspend fun read(path:String):FileObject
+    suspend fun delete(path:String)
 }
 
 abstract class AbstractStorageDriver:StorageDriverInterface{
