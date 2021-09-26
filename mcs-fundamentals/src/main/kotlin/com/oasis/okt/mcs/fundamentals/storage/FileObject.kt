@@ -1,6 +1,8 @@
 package com.oasis.okt.mcs.fundamentals.storage
 
 import java.io.File
+import java.nio.file.Files
+import kotlin.io.path.Path
 
 class FileObject(
     val path:String,
@@ -14,7 +16,8 @@ fun FileContent(config:FileContent.()->Unit):FileContent{
 class FileContent{
     private lateinit var content:ByteArray
     var metaData:Map<String,String> = mapOf()
-
+    var mimeType:String = ""
+        private set
     fun asString():String{
         return String(content)
     }
@@ -25,13 +28,15 @@ class FileContent{
 
     fun loadFromString(str:String){
         this.content = str.encodeToByteArray()
+        mimeType = "text/plain"
     }
 
     fun loadFromByteArray(bytes:ByteArray){
         this.content = bytes
     }
 
-    fun loadFromPath(path:String){
+    fun loadFromLocalPath(path:String){
         this.content = File(path).readBytes()
+        mimeType = Files.probeContentType(Path(path))
     }
 }

@@ -10,6 +10,7 @@ import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.model.*
+import java.io.InputStream
 
 class AwsStorageDriver(
     profileName: String,
@@ -29,7 +30,8 @@ class AwsStorageDriver(
     override suspend fun upload(fileObject: FileObject) {
         val putObRequest = putObRequestBuilder.key(fileObject.path).metadata(fileObject.content.metaData).build()
         try {
-            val response = s3Client.putObject(putObRequest, RequestBody.fromBytes(fileObject.content.asByteArray()))
+            val requestBody = RequestBody.fromContentProvider({fileObject.content.asByteArray().inputStream()},fileObject.content.mimeType)
+            val response = s3Client.putObject(putObRequest, requestBody)
             logger.info("s3 put object eTag : " + response.eTag())
         }catch (e:SdkException){
             throw StorageServiceException(e.message)

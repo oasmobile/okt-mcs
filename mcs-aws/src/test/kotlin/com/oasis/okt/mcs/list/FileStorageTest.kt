@@ -6,22 +6,21 @@ import com.oasis.okt.mcs.fundamentals.storage.FileObject
 import com.oasis.okt.mcs.fundamentals.storage.FileStorage
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
-import java.io.File
-import java.nio.charset.Charset
 
 
 class FileStorageTest {
-//    @Test
-//    fun fileStorageTest(){
-//        val fileStorage = FileStorage(AwsStorageDriver(profileName = "ons-kt-s3", bucket = "oas-img-upload"))
-//        runBlocking {
-//            val fileObject1 = FileObject("https://img.oasgames.com/uploads/test123.txt", FileContent {
-//                metaData = mapOf("test" to "test")
-//                loadFromPath("/Users/lizuguang/Desktop/test.png")
-//            })
-//            fileStorage.upload(fileObject1)
-//            val fileObject2 = fileStorage.read("https://img.oasgames.com/uploads/test.png")
+    @Test
+    fun fileStorageTest(){
+        val fileStorage = FileStorage(AwsStorageDriver(profileName = "ons-kt-s3", bucket = "oas-img-upload"))
+        runBlocking {
+            val fileObject1 = FileObject("uploads/234dfsgsfdg.png", FileContent {
+                metaData = mapOf("test" to "test")
+                loadFromLocalPath("/Users/lizuguang/Desktop/test.png")
+            })
+            fileStorage.upload(fileObject1)
+            //https://img.oasgames.com/uploads/234dfsgsfdg.png
+//            val fileObject2 = fileStorage.read("uploads/sdafsadf234.png")
 //            println(fileObject2.content.asString())
-//        }
-//    }
+        }
+    }
 }
