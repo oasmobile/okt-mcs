@@ -1,8 +1,6 @@
 package com.oasis.okt.mcs.aws.storage
 
-import com.oasis.okt.mcs.fundamentals.storage.AbstractStorageDriver
-import com.oasis.okt.mcs.fundamentals.storage.FileObject
-import com.oasis.okt.mcs.fundamentals.storage.StorageServiceException
+import com.oasis.okt.mcs.fundamentals.storage.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider
@@ -28,10 +26,10 @@ class AwsStorageDriver(
         s3Client = S3Client.builder().credentialsProvider(credential).region(region).build()
     }
 
-    override suspend fun put(path: String, content: String) {
+    override suspend fun upload(path: String, fileContent: FileContent) {
         val putObRequest = putObRequestBuilder.key(path).build()
         try {
-            val response = s3Client.putObject(putObRequest, RequestBody.fromBytes(content.toByteArray()))
+            val response = s3Client.putObject(putObRequest, RequestBody.fromBytes(fileContent.content))
             logger.info("s3 put object eTag : " + response.eTag())
         }catch (e:SdkException){
             throw StorageServiceException(e.message)
@@ -49,9 +47,9 @@ class AwsStorageDriver(
         }
 
         val metaData = responseWithBytes.response().metadata()
-        val body = responseWithBytes.asByteArray().toString()
+        val body = responseWithBytes.asByteArray()
 
-        return FileObject(metaData, body, path)
+        return FileObject(metaData, path,body)
     }
 
     override suspend fun delete(path: String) {

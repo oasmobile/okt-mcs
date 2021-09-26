@@ -5,7 +5,7 @@ import java.io.FileInputStream
 import java.io.IOException
 
 internal interface StorageDriverInterface {
-    suspend fun put(path: String, content: String)
+    suspend fun upload(path: String, fileContent: FileContent)
     suspend fun read(path:String):FileObject
     suspend fun delete(path:String)
 }
