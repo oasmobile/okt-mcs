@@ -26,10 +26,10 @@ class AwsStorageDriver(
         s3Client = S3Client.builder().credentialsProvider(credential).region(region).build()
     }
 
-    override suspend fun upload(path: String, fileContent: FileContent) {
-        val putObRequest = putObRequestBuilder.key(path).build()
+    override suspend fun upload(fileObject: FileObject) {
+        val putObRequest = putObRequestBuilder.key(fileObject.path).metadata(fileObject.content.metaData).build()
         try {
-            val response = s3Client.putObject(putObRequest, RequestBody.fromBytes(fileContent.content))
+            val response = s3Client.putObject(putObRequest, RequestBody.fromBytes(fileObject.content.asByteArray()))
             logger.info("s3 put object eTag : " + response.eTag())
         }catch (e:SdkException){
             throw StorageServiceException(e.message)
@@ -46,10 +46,13 @@ class AwsStorageDriver(
             throw StorageServiceException(e.message)
         }
 
-        val metaData = responseWithBytes.response().metadata()
+        val metaDataMap = responseWithBytes.response().metadata()
         val body = responseWithBytes.asByteArray()
 
-        return FileObject(metaData, path,body)
+        return FileObject(path, FileContent {
+            metaData = metaDataMap
+            loadFromByteArray(body)
+        })
     }
 
     override suspend fun delete(path: String) {

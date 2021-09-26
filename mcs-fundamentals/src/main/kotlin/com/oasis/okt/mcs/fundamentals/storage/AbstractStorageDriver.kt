@@ -4,13 +4,10 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
 
-internal interface StorageDriverInterface {
-    suspend fun upload(path: String, fileContent: FileContent)
-    suspend fun read(path:String):FileObject
-    suspend fun delete(path:String)
-}
-
-abstract class AbstractStorageDriver:StorageDriverInterface{
+abstract class AbstractStorageDriver{
+    abstract suspend fun upload(fileObject: FileObject)
+    abstract suspend fun read(path:String):FileObject
+    abstract suspend fun delete(path:String)
     protected fun getObjectFile(filePath: String): ByteArray? {
         var fileInputStream: FileInputStream? = null
         var bytesArray: ByteArray? = null
