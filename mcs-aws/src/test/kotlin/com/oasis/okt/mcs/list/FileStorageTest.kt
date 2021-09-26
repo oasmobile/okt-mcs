@@ -11,17 +11,18 @@ import org.junit.jupiter.api.Test
 class FileStorageTest {
     @Test
     fun fileStorageTest(){
-        val fileStorage = FileStorage(AwsStorageDriver(profileName = "ons-kt-s3", bucket = "oas-img-upload"))
+//        AwsStorageDriver(profileName = "ons-kt-s3", bucket = "oas-dev-common").createDir("ons")
+        val fileStorage = FileStorage(AwsStorageDriver(profileName = "ons-kt-s3", bucket = "oas-dev-common"))
         runBlocking {
-            val path = "uploads/234dfsgsfdg.png"
-            val fileContent =  FileContent {
-                metaData = mapOf("test" to "test")
-                loadFromLocalPath("/Users/lizuguang/Desktop/test.png")
-            }
-            fileStorage.put(path,fileContent)
+//            val path = "ons/234dfsgsfdg.png"
+//            val fileContent =  FileContent {
+//                metaData = mapOf("test" to "test")
+//                loadFromLocalPath("/Users/lizuguang/Desktop/test.png")
+//            }
+//            fileStorage.put(path,fileContent)
             //https://img.oasgames.com/uploads/234dfsgsfdg.png
-//            val fileObject2 = fileStorage.read("uploads/sdafsadf234.png")
-//            println(fileObject2.content.asString())
+            val fileObject2 = fileStorage.read("ons/234dfsgsfdg.png")
+            println(fileObject2.content.asByteArray().count())
         }
     }
 }

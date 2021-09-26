@@ -14,7 +14,7 @@ import java.io.InputStream
 
 class AwsStorageDriver(
     profileName: String,
-    region: Region = Region.US_EAST_1,
+    region: Region = Region.AP_NORTHEAST_1,
     bucket: String,
 ):AbstractStorageDriver() {
     private val logger: Logger = LoggerFactory.getLogger("aws.storage")
