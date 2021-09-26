@@ -27,10 +27,10 @@ class AwsStorageDriver(
         s3Client = S3Client.builder().credentialsProvider(credential).region(region).build()
     }
 
-    override suspend fun upload(fileObject: FileObject) {
-        val putObRequest = putObRequestBuilder.key(fileObject.path).metadata(fileObject.content.metaData).build()
+    override suspend fun put(path: String,fileContent: FileContent) {
+        val putObRequest = putObRequestBuilder.key(path).metadata(fileContent.metaData).build()
         try {
-            val requestBody = RequestBody.fromContentProvider({fileObject.content.asByteArray().inputStream()},fileObject.content.mimeType)
+            val requestBody = RequestBody.fromContentProvider({fileContent.asByteArray().inputStream()},fileContent.mimeType)
             val response = s3Client.putObject(putObRequest, requestBody)
             logger.info("s3 put object eTag : " + response.eTag())
         }catch (e:SdkException){
@@ -50,10 +50,10 @@ class AwsStorageDriver(
 
         val metaDataMap = responseWithBytes.response().metadata()
         val body = responseWithBytes.asByteArray()
-
+        val mimeType = responseWithBytes.response().contentType()
         return FileObject(path, FileContent {
             metaData = metaDataMap
-            loadFromByteArray(body)
+            loadFromByteArray(body,mimeType)
         })
     }
 

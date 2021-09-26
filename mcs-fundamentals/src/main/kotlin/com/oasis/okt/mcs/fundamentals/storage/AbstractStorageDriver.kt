@@ -5,7 +5,7 @@ import java.io.FileInputStream
 import java.io.IOException
 
 abstract class AbstractStorageDriver{
-    abstract suspend fun upload(fileObject: FileObject)
+    abstract suspend fun put(path:String,fileContent: FileContent)
     abstract suspend fun read(path:String):FileObject
     abstract suspend fun delete(path:String)
     protected fun getObjectFile(filePath: String): ByteArray? {

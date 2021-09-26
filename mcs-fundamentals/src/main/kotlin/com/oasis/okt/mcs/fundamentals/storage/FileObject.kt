@@ -31,8 +31,9 @@ class FileContent{
         mimeType = "text/plain"
     }
 
-    fun loadFromByteArray(bytes:ByteArray){
+    fun loadFromByteArray(bytes:ByteArray,mimeType:String){
         this.content = bytes
+        this.mimeType=mimeType
     }
 
     fun loadFromLocalPath(path:String){

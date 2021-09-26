@@ -13,11 +13,12 @@ class FileStorageTest {
     fun fileStorageTest(){
         val fileStorage = FileStorage(AwsStorageDriver(profileName = "ons-kt-s3", bucket = "oas-img-upload"))
         runBlocking {
-            val fileObject1 = FileObject("uploads/234dfsgsfdg.png", FileContent {
+            val path = "uploads/234dfsgsfdg.png"
+            val fileContent =  FileContent {
                 metaData = mapOf("test" to "test")
                 loadFromLocalPath("/Users/lizuguang/Desktop/test.png")
-            })
-            fileStorage.upload(fileObject1)
+            }
+            fileStorage.put(path,fileContent)
             //https://img.oasgames.com/uploads/234dfsgsfdg.png
 //            val fileObject2 = fileStorage.read("uploads/sdafsadf234.png")
 //            println(fileObject2.content.asString())

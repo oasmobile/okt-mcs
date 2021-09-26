@@ -10,9 +10,9 @@ class FileStorage(
         driver.delete(fileObject.path)
     }
     suspend fun put(path: String, content: FileContent){
-        //driver.upload(fileObject)
+        driver.put(path,content)
     }
     suspend fun update(fileObject: FileObject){
-        driver.upload(fileObject)
+        driver.put(fileObject.path,fileObject.content)
     }
 }
