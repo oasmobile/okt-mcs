@@ -6,8 +6,8 @@ class FileStorage(
     suspend fun read(path:String):FileObject{
         return driver.read(path)
     }
-    suspend fun delete(fileObject: FileObject){
-        driver.delete(fileObject.path)
+    suspend fun delete(path:String){
+        driver.delete(path)
     }
     suspend fun put(path: String, content: FileContent){
         driver.put(path,content)
