@@ -62,7 +62,9 @@ class AwsStorageDriver(
         val dor = delObRequestBuilder.delete(Delete.builder().objects(toDelete).build()).build()
 
         try {
-            s3Client.deleteObjects(dor)
+            val response = s3Client.deleteObjects(dor)
+            logger.debug("aws sdk delete status :${response.hasDeleted()}")
+            logger.debug("aws sdk has errors :${response.hasErrors()}")
         }catch (e:SdkException){
             throw StorageServiceException(e.message)
         }
