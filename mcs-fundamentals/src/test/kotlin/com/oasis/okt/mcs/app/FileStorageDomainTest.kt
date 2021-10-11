@@ -11,7 +11,7 @@ class FileStorageDomainTest {
         val fileContent = FileContent {
             loadFromString("你好")
         }
-        val fileObject = FileObject(path = "",content = fileContent.content)
-        println(fileObject.readAsString())
+        val fileObject = FileObject(path = "",content = fileContent)
+        println(fileObject.content.asString())
     }
 }
