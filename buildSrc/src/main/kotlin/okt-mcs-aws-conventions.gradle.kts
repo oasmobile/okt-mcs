@@ -8,4 +8,5 @@ plugins {
 dependencies {
     api(platform("software.amazon.awssdk:bom:$awsSdkVersion"))
     api("software.amazon.awssdk:sqs:$awsSdkVersion")
+    api("software.amazon.awssdk:s3:$awsSdkVersion")
 }
